@@ -1,19 +1,12 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'node:16.13.1-alpine' }
+    }
     stages {
-            stage('Build') {
-                agent {
-                    docker {
-                        image 'maven:3.8.4-openjdk-11-slim'
-                        // Run the container on the node specified at the
-                        // top-level of the Pipeline, in the same workspace,
-                        // rather than on a new node entirely:
-                        reuseNode true
-                    }
-                }
-                steps {
-                    sh 'mvn -version'
-                }
+        stage('Test') {
+            steps {
+                sh 'node --version'
             }
+        }
     }
 }
